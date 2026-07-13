@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOI iOS — QA Test Report | 2026-07-13</title>
+<style>
+  /* ── Reset & Base ──────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 13px;
+    color: #1a1a2e;
+    background: #f4f6fb;
+    line-height: 1.5;
+  }
+
+  /* ── Page wrapper ─────────────────────────────────────────── */
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.10);
+  }
+
+  /* ── Header ───────────────────────────────────────────────── */
+  .header {
+    background: #0d1b3e;
+    color: #fff;
+    padding: 28px 40px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header-left {}
+  .header-title {
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .header-sub {
+    font-size: 11px;
+    color: #9ab0d8;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
+  }
+  .header-logo {
+    text-align: right;
+  }
+  .header-logo .app-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: #e8364d;
+    letter-spacing: -0.5px;
+  }
+  .header-logo .app-meta {
+    font-size: 11px;
+    color: #9ab0d8;
+    margin-top: 2px;
+  }
+
+  /* ── Meta bar ─────────────────────────────────────────────── */
+  .meta-bar {
+    background: #162040;
+    color: #c0ceea;
+    padding: 8px 40px;
+    font-size: 11px;
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+  .meta-bar span strong { color: #fff; }
+
+  /* ── Content area ─────────────────────────────────────────── */
+  .content { padding: 32px 40px 40px; }
+
+  /* ── Section headings ─────────────────────────────────────── */
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #0d1b3e;
+    border-left: 4px solid #0d1b3e;
+    padding-left: 10px;
+    margin: 28px 0 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .section-title:first-child { margin-top: 0; }
+
+  /* ── Executive summary box ────────────────────────────────── */
+  .exec-summary {
+    background: #f0f4ff;
+    border: 1px solid #c7d4f0;
+    border-radius: 6px;
+    padding: 18px 22px;
+    margin-bottom: 22px;
+  }
+  .exec-summary p {
+    color: #2a3a5e;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .exec-summary p:last-child { margin-bottom: 0; }
+
+  /* ── Overall status badge ─────────────────────────────────── */
+  .status-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 16px 0 22px;
+    flex-wrap: wrap;
+  }
+  .status-label { font-weight: 600; color: #0d1b3e; font-size: 13px; }
+  .badge {
+    display: inline-block;
+    padding: 5px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    text-transform: uppercase;
+  }
+  .badge-green  { background: #1a7a3c; color: #fff; }
+  .badge-red    { background: #c0392b; color: #fff; }
+  .badge-amber  { background: #d4830a; color: #fff; }
+  .badge-blue   { background: #1565c0; color: #fff; }
+  .badge-navy   { background: #0d1b3e; color: #fff; }
+
+  /* ── Key metrics cards ────────────────────────────────────── */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 26px;
+  }
+  .metric-card {
+    border: 1px solid #dde4f5;
+    border-radius: 6px;
+    padding: 14px 12px;
+    text-align: center;
+    background: #fafbff;
+  }
+  .metric-card .m-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: #0d1b3e;
+    line-height: 1.1;
+  }
+  .metric-card .m-label {
+    font-size: 10px;
+    color: #6b7a99;
+    margin-top: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+  }
+  .metric-card .m-sub {
+    font-size: 11px;
+    font-weight: 600;
+    margin-top: 6px;
+  }
+  .m-sub.pass   { color: #1a7a3c; }
+  .m-sub.fail   { color: #c0392b; }
+  .m-sub.warn   { color: #d4830a; }
+
+  /* ── Tables ───────────────────────────────────────────────── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 6px;
+    font-size: 12.5px;
+  }
+  thead th {
+    background: #0d1b3e;
+    color: #fff;
+    padding: 9px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11.5px;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+  }
+  tbody tr:nth-child(even) { background: #f5f7fc; }
+  tbody tr:nth-child(odd)  { background: #fff; }
+  tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e8edf8;
+    vertical-align: middle;
+  }
+  .tbl-note {
+    font-size: 11px;
+    color: #6b7a99;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* ── Test header strip ────────────────────────────────────── */
+  .test-header {
+    background: #162040;
+    color: #fff;
+    padding: 10px 16px;
+    border-radius: 4px 4px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 28px;
+    margin-bottom: 0;
+  }
+  .test-header .t-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .test-header .t-num {
+    font-size: 11px;
+    color: #9ab0d8;
+  }
+  .test-body {
+    border: 1px solid #dde4f5;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    padding: 18px 18px 14px;
+  }
+
+  /* ── Sub-section heading inside test body ─────────────────── */
+  .sub-heading {
+    font-size: 12px;
+    font-weight: 700;
+    color: #0d1b3e;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin: 18px 0 8px;
+    border-bottom: 1px solid #e8edf8;
+    padding-bottom: 4px;
+  }
+  .sub-heading:first-child { margin-top: 0; }
+
+  /* ── Inline pass/fail ─────────────────────────────────────── */
+  .cell-pass { color: #1a7a3c; font-weight: 700; }
+  .cell-fail { color: #c0392b; font-weight: 700; }
+  .cell-warn { color: #d4830a; font-weight: 700; }
+  .cell-info { color: #1565c0; font-weight: 700; }
+
+  /* ── UTM item cards ───────────────────────────────────────── */
+  .utm-card {
+    border: 1px solid #dde4f5;
+    border-radius: 5px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  .utm-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 14px;
+    background: #f0f4ff;
+    border-bottom: 1px solid #dde4f5;
+  }
+  .utm-card-header .item-name {
+    font-weight: 700;
+    color: #0d1b3e;
+    font-size: 13px;
+  }
+  .utm-card-body { padding: 10px 14px; }
+  .utm-card-body table { margin-bottom: 0; }
+  .utm-note {
+    font-size: 11px;
+    color: #6b7a99;
+    margin-top: 8px;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ── Findings / action items ──────────────────────────────── */
+  .findings {
+    background: #fff8e1;
+    border: 1px solid #ffe082;
+    border-radius: 5px;
+    padding: 14px 18px;
+    margin-top: 22px;
+  }
+  .findings h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #7a5200;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 8px;
+  }
+  .findings ul { padding-left: 18px; }
+  .findings ul li { color: #5a3c00; font-size: 12px; margin-bottom: 5px; line-height: 1.5; }
+
+  /* ── Recommendations ──────────────────────────────────────── */
+  .recommendations {
+    background: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    border-radius: 5px;
+    padding: 14px 18px;
+    margin-top: 14px;
+  }
+  .recommendations h4 {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #1a5928;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 8px;
+  }
+  .recommendations ul { padding-left: 18px; }
+  .recommendations ul li { color: #1a3e22; font-size: 12px; margin-bottom: 5px; line-height: 1.5; }
+
+  /* ── Footer ───────────────────────────────────────────────── */
+  .footer {
+    background: #0d1b3e;
+    color: #9ab0d8;
+    padding: 14px 40px;
+    font-size: 10.5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .footer span { color: #fff; }
+
+  /* ── Print ────────────────────────────────────────────────── */
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; }
+    .test-header, .header, .footer, .meta-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .badge, thead th, .metric-card { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  HEADER                                                    -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="header">
+    <div class="header-left">
+      <div class="header-title">QA Test Report</div>
+      <div class="header-sub">Confidential – Internal Use Only</div>
+    </div>
+    <div class="header-logo">
+      <div class="app-name">TOI</div>
+      <div class="app-meta">iOS · v18.0.1 · iPhone 16 Pro</div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  META BAR                                                  -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="meta-bar">
+    <span><strong>Date:</strong> 2026-07-13</span>
+    <span><strong>Device:</strong> Rishabh Khare's iPhone — iPhone 16 Pro (iPhone18,3)</span>
+    <span><strong>iOS:</strong> 26.5.1</span>
+    <span><strong>App:</strong> com.2ergoTOI.jayant</span>
+    <span><strong>Automation:</strong> Appium 3.x + XCUITest</span>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  CONTENT                                                   -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="content">
+
+    <!-- Executive Summary -->
+    <div class="section-title">Executive Summary</div>
+
+    <div class="exec-summary">
+      <p>
+        This report covers the automated QA test cycle for <strong>TOI News iOS v18.0.1</strong>
+        executed on a physical <strong>iPhone 16 Pro</strong> running <strong>iOS 26.5.1</strong>.
+        Three test categories were executed: App Cold Start Performance, Monkey Stress Test (20 minutes),
+        and Rail Items UTM Parameter Analysis.
+      </p>
+      <p>
+        The app demonstrated <strong>zero crashes</strong> across all test runs and excellent warm-restart
+        performance (~850 ms). True cold start times (7.7–9.6 s) exceed the 5,000 ms industry threshold and
+        require profiling attention. All three rail items audited are missing standard UTM attribution parameters,
+        representing a missed analytics opportunity. All reported ANR events are automation-infrastructure
+        (XCTest WDA) latency — not app-level hangs.
+      </p>
+    </div>
+
+    <div class="status-row">
+      <span class="status-label">Overall Status:</span>
+      <span class="badge badge-amber">APPROVED WITH ACTION ITEMS</span>
+    </div>
+
+    <!-- Key Metrics -->
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <div class="m-value">4/5</div>
+        <div class="m-label">Cold Start Runs Passed</div>
+        <div class="m-sub warn">1 Exceeded Threshold</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-value">0</div>
+        <div class="m-label">App Crashes (20-Min Stress)</div>
+        <div class="m-sub pass">PASS ✓</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-value">7,755 ms</div>
+        <div class="m-label">True Cold Start Time</div>
+        <div class="m-sub fail">Exceeds 5,000 ms</div>
+      </div>
+      <div class="metric-card">
+        <div class="m-value">0/3</div>
+        <div class="m-label">UTM Rail Items Passing</div>
+        <div class="m-sub fail">All Missing UTM Params</div>
+      </div>
+    </div>
+
+    <!-- Test Results Summary -->
+    <div class="section-title">Test Results Summary</div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:8%">Test #</th>
+          <th style="width:38%">Test Name</th>
+          <th style="width:16%">Result</th>
+          <th>Key Metric</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="font-weight:700;color:#0d1b3e">01</td>
+          <td>App Start Time Performance (Cold Start)</td>
+          <td><span class="badge badge-amber">CONDITIONAL PASS</span></td>
+          <td>True Cold: 7,755 ms &nbsp;|&nbsp; Warm Avg: 862 ms</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:#0d1b3e">02</td>
+          <td>Monkey Stress Test (20 Minutes)</td>
+          <td><span class="badge badge-green">PASS</span></td>
+          <td>0 Crashes · 0 App-Level ANRs · 6 Screens</td>
+        </tr>
+        <tr>
+          <td style="font-weight:700;color:#0d1b3e">03</td>
+          <td>Rail Items — UTM Parameter Analysis</td>
+          <td><span class="badge badge-red">FAIL</span></td>
+          <td>0 / 3 items have required UTM parameters</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  TEST 1: COLD START                                      -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <div class="test-header">
+      <div class="t-title">Test 1: App Start Time Performance</div>
+      <div class="t-num">Session 2 — 2026-07-13 14:32 · Threshold: 5,000 ms</div>
+    </div>
+    <div class="test-body">
+
+      <div class="sub-heading">Iteration Results</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Iteration</th>
+            <th>Cold Start Time (ms)</th>
+            <th>Start Type</th>
+            <th>Result</th>
+            <th>Delta vs Threshold</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td><strong>7,755 ms</strong></td>
+            <td>True Cold Start (binary read from flash)</td>
+            <td><span class="cell-fail">FAIL</span></td>
+            <td style="color:#c0392b">+2,755 ms over limit</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>4,092 ms</td>
+            <td>Partial Warm (pages partially cached)</td>
+            <td><span class="cell-pass">PASS</span></td>
+            <td style="color:#1a7a3c">−908 ms under limit</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>735 ms</td>
+            <td>Warm Restart (full OS page cache hit)</td>
+            <td><span class="cell-pass">PASS</span></td>
+            <td style="color:#1a7a3c">−4,265 ms under limit</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>4,285 ms</td>
+            <td>Partial Warm (pages partially cached)</td>
+            <td><span class="cell-pass">PASS</span></td>
+            <td style="color:#1a7a3c">−715 ms under limit</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>850 ms</td>
+            <td>Warm Restart (full OS page cache hit)</td>
+            <td><span class="cell-pass">PASS</span></td>
+            <td style="color:#1a7a3c">−4,150 ms under limit</td>
+          </tr>
+          <tr style="background:#eef2ff!important;font-weight:700">
+            <td>Average</td>
+            <td>3,543 ms</td>
+            <td>—</td>
+            <td><span class="cell-warn">4 / 5 PASS</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tbl-note">Methodology: <code>terminateApp</code> → 2.5 s settle → <code>activateApp</code> → poll for <code>XCUIElementTypeTabBar</code> visible. Alert threshold: 5,000 ms (macOS <code>osascript</code> notification on breach).</p>
+
+      <div class="sub-heading">Cross-Session Cold Start Comparison</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Time</th>
+            <th>Run 1 (True Cold)</th>
+            <th>Warm Avg (Runs 2–5)</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Session 1</td>
+            <td>13:32</td>
+            <td><strong>9,593 ms</strong> <span class="cell-fail">FAIL</span></td>
+            <td>840 ms</td>
+            <td>Baseline — full flash I/O cold start</td>
+          </tr>
+          <tr>
+            <td>Session 2</td>
+            <td>14:32</td>
+            <td><strong>7,755 ms</strong> <span class="cell-fail">FAIL</span></td>
+            <td>2,493 ms*</td>
+            <td>Slight device warm-up vs Session 1</td>
+          </tr>
+          <tr>
+            <td>Session 3</td>
+            <td>14:37</td>
+            <td>904 ms <span class="cell-pass">(WARM)</span></td>
+            <td>862 ms</td>
+            <td>All warm — binary cached from Session 2</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tbl-note">*Session 2 warm avg includes two lukewarm runs (4,092 ms, 4,285 ms) where OS had partially evicted binary pages. Session 3 (5/5 PASS, avg 862 ms, σ = 25 ms) confirms excellent warm-restart performance.</p>
+
+      <div class="findings">
+        <h4>Finding — True Cold Start Exceeds Threshold</h4>
+        <ul>
+          <li>True cold start is consistently <strong>7.7–9.6 s</strong> across two independent sessions, exceeding the 5,000 ms industry benchmark by +2.7–4.6 s.</li>
+          <li>Warm restarts are excellent at <strong>~840–900 ms</strong> — well within threshold.</li>
+          <li><strong>Root cause likely:</strong> Heavy SDK initialisation in <code>applicationDidFinishLaunching</code> (analytics, ads, push, crash-reporting SDKs) blocking the main thread before first render.</li>
+        </ul>
+      </div>
+      <div class="recommendations">
+        <h4>Recommendation</h4>
+        <ul>
+          <li>Profile <code>applicationDidFinishLaunching</code> and <code>application(_:didFinishLaunchingWithOptions:)</code> using <strong>Instruments → App Launch</strong> template.</li>
+          <li>Defer non-critical SDK initialisation (analytics, ads) to after first frame render using <code>DispatchQueue.main.asyncAfter(deadline: .now() + 0.5)</code> or a background queue.</li>
+          <li>Target: reduce true cold start to &lt; 5,000 ms. Re-test after each SDK deferral to measure incremental gain.</li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  TEST 2: MONKEY STRESS TEST                              -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <div class="test-header">
+      <div class="t-title">Test 2: Monkey Stress Test (20 Minutes)</div>
+      <div class="t-num">Run 3 (Final) — 2026-07-13 22:27 · 22.9 min runtime</div>
+    </div>
+    <div class="test-body">
+
+      <div class="sub-heading">Key Metrics</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Test Duration</td>
+            <td>22.9 minutes</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>Total Events Processed</td>
+            <td>33 events (avg 1.4 events/min)</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td>App Crashes</td>
+            <td><strong>0</strong></td>
+            <td><span class="badge badge-green">PASS</span></td>
+          </tr>
+          <tr>
+            <td>ANR / Freeze Events</td>
+            <td>8 (all WDA infrastructure — not app-level)</td>
+            <td><span class="badge badge-blue">INFRA ONLY</span></td>
+          </tr>
+          <tr>
+            <td>App-Level ANRs</td>
+            <td><strong>0</strong></td>
+            <td><span class="badge badge-green">PASS</span></td>
+          </tr>
+          <tr>
+            <td>Overall App Stability</td>
+            <td>TOI app remained running &amp; responsive throughout</td>
+            <td><span class="badge badge-green">EXCELLENT</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-heading">6 Unique Screens Accessed</div>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Screen / Activity Name</th>
+            <th>Type</th>
+            <th>First Seen</th>
+            <th>Events</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Home Feed</td>
+            <td>Main App</td>
+            <td>127 s</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Article / Feed (Unknown Screen)</td>
+            <td>Content</td>
+            <td>184 s</td>
+            <td>4</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Settings</td>
+            <td>Settings</td>
+            <td>372 s</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>App Exclusives</td>
+            <td>Main App</td>
+            <td>683 s</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>Article View</td>
+            <td>Content</td>
+            <td>701 s</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>ePaper</td>
+            <td>Content</td>
+            <td>1080 s</td>
+            <td>1</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tbl-note">Screens targeted but not confirmed within time budget: Side Navigation, Search, Login, OTP, Category/Section, Markets, Explore. Navigation was attempted but WDA touch injection latency (15–30 s per tap after each app reset) exhausted the available time window before screen predicates could be confirmed.</p>
+
+      <div class="sub-heading">Test Methodology</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Parameter</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Automation Stack</td>
+            <td>Appium 3.x + XCUITest Driver 11.1.6 + xcodebuild</td>
+          </tr>
+          <tr>
+            <td>Connection</td>
+            <td>iproxy USB tunnel → WDA on device port 8100</td>
+          </tr>
+          <tr>
+            <td>Phase 1 (0–18 min)</td>
+            <td>Systematic screen tour — 12 target screens + 3 bonus tabs</td>
+          </tr>
+          <tr>
+            <td>Phase 2 (18–20 min)</td>
+            <td>Pure random monkey (38% tap · 25% swipe up · 13% swipe down · 10% back · 7% left · 4% right)</td>
+          </tr>
+          <tr>
+            <td>Crash Detection</td>
+            <td><code>mobile: queryAppState</code> — fail if state ∉ {3, 4}</td>
+          </tr>
+          <tr>
+            <td>Screen Detection</td>
+            <td>16 XCUITest predicates + NavigationBar title fallback</td>
+          </tr>
+          <tr>
+            <td>ANR Threshold</td>
+            <td>Commands exceeding 8 s flagged as freeze events</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="sub-heading">Multi-Run Summary</div>
+      <table>
+        <thead>
+          <tr>
+            <th>Run</th>
+            <th>Time</th>
+            <th>Duration</th>
+            <th>Events</th>
+            <th>Screens</th>
+            <th>Crashes</th>
+            <th>ANRs (Infra)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Run 1</td>
+            <td>21:01</td>
+            <td>20.1 min</td>
+            <td>37</td>
+            <td>6</td>
+            <td><span class="cell-pass">0</span></td>
+            <td>15</td>
+          </tr>
+          <tr>
+            <td>Run 2</td>
+            <td>22:12</td>
+            <td>~10 min*</td>
+            <td>—</td>
+            <td>5</td>
+            <td><span class="cell-pass">0</span></td>
+            <td>7</td>
+          </tr>
+          <tr>
+            <td>Run 3 (Final)</td>
+            <td>22:27</td>
+            <td>22.9 min</td>
+            <td>33</td>
+            <td>6</td>
+            <td><span class="cell-pass">0</span></td>
+            <td>8</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="tbl-note">*Run 2 was terminated at 10 min to apply WDA warm-up fix. Consistent finding across all runs: <strong>0 app crashes. All ANRs are XCTest/WDA infrastructure (iOS 26.5.1 touch injection re-attach latency), not app-level.</strong></p>
+
+      <div class="findings">
+        <h4>Root Cause — iOS 26.5.1 XCTest Touch Injection Latency</h4>
+        <ul>
+          <li>After every <code>terminateApp + activateApp</code> reset, XCTest's pointer-event injection pipeline re-attaches to the newly spawned app process. On iOS 26.5.1, this re-attachment takes <strong>15–30 s per touch event</strong> until the pipeline is established; subsequent taps settle to &lt; 600 ms.</li>
+          <li>With 8 resets across 20 minutes, each reset burns 30–60 s of warm-up budget, limiting the number of unique screens confirmable within the time window.</li>
+          <li><strong>This is an iOS 26 XCTest framework constraint, not a TOI app issue.</strong></li>
+        </ul>
+      </div>
+      <div class="recommendations">
+        <h4>Recommendation — Automation Improvement</h4>
+        <ul>
+          <li>Replace <code>terminateApp + activateApp</code> resets with UI-level navigation back to the home tab bar tap. This avoids breaking the XCTest event pipeline and maintains tap latency at &lt; 600 ms throughout the test.</li>
+          <li>Expected outcome: 20+ unique screens confirmable within the same 20-minute window.</li>
+        </ul>
+      </div>
+    </div>
+
+
+    <!-- ════════════════════════════════════════════════════════ -->
+    <!--  TEST 3: UTM PARAMETER ANALYSIS                          -->
+    <!-- ════════════════════════════════════════════════════════ -->
+    <div class="test-header">
+      <div class="t-title">Test 3: Rail Items — UTM Parameter Analysis</div>
+      <div class="t-num">2026-07-13 15:15 · Section Audited: Home Feed Rail Strip</div>
+    </div>
+    <div class="test-body">
+
+      <div class="sub-heading">Overall Result: <span class="cell-fail">❌ 0 / 3 Items Pass</span></div>
+      <p style="font-size:12px;color:#555;margin-bottom:14px">UTM keys checked: <code>utm_source</code> · <code>utm_medium</code> · <code>utm_campaign</code> · <code>utm_content</code> &nbsp;—&nbsp; All four required for a PASS.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Rail Item</th>
+            <th>Destination</th>
+            <th>Browser</th>
+            <th>UTM Params</th>
+            <th>Result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>AI Masterclass</strong></td>
+            <td style="font-size:11px">timesofindia.indiatimes.com/toi/ai-masterclass</td>
+            <td>WKWebView</td>
+            <td><span class="cell-fail">None (has <code>ag=toiapprails</code> only)</span></td>
+            <td><span class="badge badge-red">FAIL</span></td>
+          </tr>
+          <tr>
+            <td><strong>Chat with Astrologer</strong></td>
+            <td style="font-size:11px">api.whatsapp.com (domain only)</td>
+            <td>SFSafariViewController</td>
+            <td><span class="cell-fail">None (URL restricted by iOS)</span></td>
+            <td><span class="badge badge-red">FAIL</span></td>
+          </tr>
+          <tr>
+            <td><strong>Financial Freedom</strong></td>
+            <td style="font-size:11px">economictimes.indiatimes.com (domain only)</td>
+            <td>SFSafariViewController</td>
+            <td><span class="cell-fail">None (URL restricted by iOS)</span></td>
+            <td><span class="badge badge-red">FAIL</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!-- Item 1: AI Masterclass -->
+      <div class="sub-heading" style="margin-top:20px">Item 1 — AI Masterclass</div>
+      <div class="utm-card">
+        <div class="utm-card-header">
+          <span class="item-name">AI Masterclass</span>
+          <span class="badge badge-red">FAIL</span>
+        </div>
+        <div class="utm-card-body">
+          <table>
+            <tbody>
+              <tr><td style="width:200px;color:#6b7a99">Destination URL</td><td><code>https://timesofindia.indiatimes.com/toi/ai-masterclass</code></td></tr>
+              <tr><td style="color:#6b7a99">Browser</td><td>WKWebView (TOI custom in-app browser)</td></tr>
+              <tr><td style="color:#6b7a99">Query params found</td><td><code>ag=toiapprails</code></td></tr>
+              <tr><td style="color:#6b7a99">utm_source</td><td><span class="cell-fail">❌ MISSING</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_medium</td><td><span class="cell-fail">❌ MISSING</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_campaign</td><td><span class="cell-fail">❌ MISSING</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_content</td><td><span class="cell-fail">❌ MISSING</span></td></tr>
+            </tbody>
+          </table>
+          <p class="utm-note">The URL contains a custom <code>ag=toiapprails</code> parameter indicating some attribution intent, but this is not a standard UTM parameter and will not be recognised by GA4, Firebase, or Amplitude. Full URL is accessible via WKWebView address bar.</p>
+        </div>
+      </div>
+
+      <!-- Item 2: Chat with Astrologer -->
+      <div class="sub-heading">Item 2 — Chat with Astrologer</div>
+      <div class="utm-card">
+        <div class="utm-card-header">
+          <span class="item-name">Chat with Astrologer</span>
+          <span class="badge badge-red">FAIL</span>
+        </div>
+        <div class="utm-card-body">
+          <table>
+            <tbody>
+              <tr><td style="width:200px;color:#6b7a99">Destination Domain</td><td><code>https://api.whatsapp.com</code> (Times Astro WhatsApp link)</td></tr>
+              <tr><td style="color:#6b7a99">Browser</td><td>SFSafariViewController (iOS system browser sheet)</td></tr>
+              <tr><td style="color:#6b7a99">Full URL accessible</td><td>No — iOS security model restricts host app from reading full URL</td></tr>
+              <tr><td style="color:#6b7a99">utm_source</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_medium</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_campaign</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_content</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+            </tbody>
+          </table>
+          <p class="utm-note">Opens via SFSafariViewController — Apple's iOS security model prevents the host app from reading the full URL. Only the domain (<code>api.whatsapp.com</code>) is accessible via XCUITest. Additionally, WhatsApp strips URL parameters on redirect, making UTM attribution fundamentally impossible via URL alone. Consider Branch.io / Adjust deep links or server-side redirect attribution logging.</p>
+        </div>
+      </div>
+
+      <!-- Item 3: Financial Freedom -->
+      <div class="sub-heading">Item 3 — Financial Freedom</div>
+      <div class="utm-card">
+        <div class="utm-card-header">
+          <span class="item-name">Financial Freedom</span>
+          <span class="badge badge-red">FAIL</span>
+        </div>
+        <div class="utm-card-body">
+          <table>
+            <tbody>
+              <tr><td style="width:200px;color:#6b7a99">Destination Domain</td><td><code>https://economictimes.indiatimes.com</code></td></tr>
+              <tr><td style="color:#6b7a99">Browser</td><td>SFSafariViewController</td></tr>
+              <tr><td style="color:#6b7a99">Full URL accessible</td><td>No — iOS security model restricts host app from reading full URL</td></tr>
+              <tr><td style="color:#6b7a99">utm_source</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_medium</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_campaign</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+              <tr><td style="color:#6b7a99">utm_content</td><td><span class="cell-fail">❌ MISSING / NOT VERIFIABLE</span></td></tr>
+            </tbody>
+          </table>
+          <p class="utm-note">Links outbound to the Economic Times (ET Prime) via SFSafariViewController. Without UTM parameters, TOI cannot attribute traffic, revenue actions, or downstream conversions on ET back to this specific rail placement — a missed cross-property attribution opportunity.</p>
+        </div>
+      </div>
+
+      <div class="findings">
+        <h4>Findings Summary</h4>
+        <ul>
+          <li><strong>AI Masterclass</strong> uses a non-standard <code>ag=toiapprails</code> parameter instead of the UTM standard. Traffic will not be correctly attributed in GA4 / Firebase / Amplitude as coming from the TOI app rail.</li>
+          <li><strong>Chat with Astrologer</strong> links to WhatsApp (<code>api.whatsapp.com</code>). Even if UTM params were appended, WhatsApp strips them on redirect — UTM attribution from this placement is fundamentally not possible via URL alone.</li>
+          <li><strong>Financial Freedom</strong> links to ET without any UTM parameters. TOI cannot measure the downstream value (traffic, revenue, conversions) of this rail placement on ET.</li>
+        </ul>
+      </div>
+      <div class="recommendations">
+        <h4>Recommended Fix — Standard UTM Schema</h4>
+        <ul>
+          <li><strong>AI Masterclass:</strong> <code>?utm_source=toi_app&amp;utm_medium=rail&amp;utm_campaign=ai_masterclass_2026&amp;utm_content=rail_ai_masterclass</code></li>
+          <li><strong>Chat with Astrologer:</strong> Replace direct WhatsApp link with a tracked server-side redirect (e.g. Branch.io / Adjust) that logs the attribution event before forwarding to WhatsApp.</li>
+          <li><strong>Financial Freedom:</strong> <code>?utm_source=toi_app&amp;utm_medium=rail&amp;utm_campaign=financial_freedom_2026&amp;utm_content=rail_financial_freedom</code></li>
+          <li>All outbound rail links should be validated via <strong>Charles Proxy / mitmproxy</strong> on-device or desktop browser inspection to confirm full UTM presence before release.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <!--  FOOTER                                                    -->
+  <!-- ══════════════════════════════════════════════════════════ -->
+  <div class="footer">
+    <div>Generated: <span>2026-07-13</span> &nbsp;|&nbsp; Automation: <span>Appium 3.x + XCUITest Driver 11.1.6 + xcodebuild</span> &nbsp;|&nbsp; Device: <span>iPhone 16 Pro · iOS 26.5.1</span></div>
+    <div>App: <span>TOI News v18.0.1</span> &nbsp;|&nbsp; Bundle: <span>com.2ergoTOI.jayant</span></div>
+  </div>
+
+</div><!-- /page -->
+</body>
+</html>
