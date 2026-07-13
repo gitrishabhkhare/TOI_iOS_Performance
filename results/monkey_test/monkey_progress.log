@@ -1,0 +1,71 @@
+[22:27:40] ============================================================
+[22:27:40]   TOI Monkey Stress Test — 20 min  (Final)
+[22:27:40] ============================================================
+[22:27:40]   Started : 2026-07-13 22:27:40
+[22:27:40] ============================================================
+[22:27:40] 
+Creating Appium session...
+[22:27:47] Session: 16b09a20-a00b-4d27-a832-3b7b9d4a682b
+[22:27:50] WDA warm-up taps (4 × 30 s budget)...
+[22:27:54] WDA warmed up — starting test clock
+[22:27:54] 
+── PHASE 1: Screen Tour ──────────────────────────────────
+[22:29:21]   [1] Home Feed
+[22:29:47]   ★ # 1 NEW: Home Feed (Main App)
+[22:30:02]   ⚠️  ANR: slow_tap (15.0s)
+[22:30:13]   ⚠️  ANR: slow_tap (10.1s)
+[22:30:15]   [ 2m] events=3  screens=1  crashes=0  anrs=2
+[22:30:15]   [2] Article View
+[22:30:44]   ★ # 2 NEW: Unknown (Unknown)
+[22:30:58]   [3] Side Navigation
+[22:31:12]   [4] Search
+[22:31:29]   [ 3m] events=12  screens=2  crashes=0  anrs=2
+[22:31:29]   [5] Settings
+[22:33:14]   ⚠️  ANR: hamburger_coord (15.0s)
+[22:33:52]   ★ # 3 NEW: Settings (Settings)
+[22:34:07]   ⚠️  ANR: slow_tap (15.0s)
+[22:34:22]   ⚠️  ANR: slow_tap (15.0s)
+[22:34:49]   ⚠️  ANR: back_settings (26.0s)
+[22:34:51]   [ 7m] events=16  screens=3  crashes=0  anrs=6
+[22:34:51]   [6] Login Screen
+[22:37:03]   [ 9m] events=18  screens=3  crashes=0  anrs=6
+[22:37:03]   [7] OTP Screen
+[22:37:19]   [8] App Exclusives
+[22:39:03]   ★ # 4 NEW: App Exclusives (Main App)
+[22:39:05]   [11m] events=21  screens=4  crashes=0  anrs=6
+[22:39:05]   [9] Exclusives Article
+[22:39:21]   ★ # 5 NEW: Article View (Content)
+[22:39:27]   [10] Category / Section — Astrology
+[22:41:12]   ⚠️  ANR: hamburger_coord (15.0s)
+[22:43:16]   [15m] events=27  screens=5  crashes=0  anrs=7
+[22:43:16]   [11] Article in Category
+[22:43:37]   [12] ePaper
+[22:45:22]   ⚠️  ANR: hamburger_coord (15.0s)
+[22:45:40]   ★ # 6 NEW: ePaper (Content)
+[22:45:42]   [18m] events=33  screens=6  crashes=0  anrs=8
+[22:45:42]   [bonus] Markets
+[22:47:16]   [bonus] Explore
+[22:49:02] 
+  Phase 1 complete — 6 screens found
+[22:49:02]   [21m] events=33  screens=6  crashes=0  anrs=8
+[22:49:02] 
+── PHASE 2: Random Monkey ────────────────────────────────
+[22:50:35] 
+============================================================
+[22:50:35]   DONE
+[22:50:35] ============================================================
+[22:50:35]   Duration      : 22.9 min
+[22:50:35]   Total Events  : 33
+[22:50:35]   Events/min    : 1
+[22:50:35]   App Crashes   : 0
+[22:50:35]   ANR Events    : 8
+[22:50:35]   Unique Screens: 6
+[22:50:35]     # 1 Home Feed                       (Main App    ) events=  1 t=127s
+[22:50:35]     # 2 Unknown                         (Unknown     ) events=  4 t=184s
+[22:50:35]     # 3 Settings                        (Settings    ) events=  1 t=372s
+[22:50:35]     # 4 App Exclusives                  (Main App    ) events=  1 t=683s
+[22:50:35]     # 5 Article View                    (Content     ) events=  2 t=701s
+[22:50:35]     # 6 ePaper                          (Content     ) events=  1 t=1080s
+[22:50:35] ============================================================
+[22:50:35] JSON → /Users/Rishabh.Khare/TOI_iOS_Performance/scripts/../results/monkey_test/monkey_test_results.json
+[22:50:35] Report → /Users/Rishabh.Khare/TOI_iOS_Performance/scripts/../results/monkey_test/monkey_test_report.md

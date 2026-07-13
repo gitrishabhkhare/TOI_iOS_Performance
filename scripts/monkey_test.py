@@ -36,6 +36,7 @@ CAPS = {
     "appium:xcodeOrgId":        ORG,
     "appium:xcodeSigningId":    "Apple Development",
     "appium:useNewWDA":         False,
+    "appium:webDriverAgentUrl": "http://localhost:8200",  # iproxy → device WDA
     "appium:newCommandTimeout": 300,
 }
 # ─────────────────────────────────────────────────────────────────────────────
@@ -138,6 +139,14 @@ def RESET(sid):
       "args":[{"bundleId":BUNDLE}]},t=15)
     time.sleep(4)
     WAIT(sid,"type == 'XCUIElementTypeCell'",secs=8)
+    # Re-warm WDA touch pipeline after app restart gap
+    for _ in range(2):
+        R(sid,"POST","/actions",{"actions":[{"type":"pointer","id":"f1",
+          "parameters":{"pointerType":"touch"},"actions":[
+          {"type":"pointerMove","duration":0,"x":196,"y":426},
+          {"type":"pointerDown","button":0},{"type":"pause","duration":80},
+          {"type":"pointerUp","button":0}]}]},t=30)
+        time.sleep(0.3)
 
 # ── Screen signatures ─────────────────────────────────────────────────────────
 SIGS = [
@@ -192,6 +201,18 @@ def run():
     sid = make_session()
     log(f"Session: {sid}")
     time.sleep(3)
+
+    # WDA warm-up: first tap after fresh WDA launch is slow (10-14s); do 4 silent
+    # warm-up taps with a 30s timeout so the XCTest event pipeline initialises.
+    log("WDA warm-up taps (4 × 30 s budget)...")
+    for _w in range(4):
+        R(sid,"POST","/actions",{"actions":[{"type":"pointer","id":"f1",
+          "parameters":{"pointerType":"touch"},"actions":[
+          {"type":"pointerMove","duration":0,"x":196,"y":426},
+          {"type":"pointerDown","button":0},{"type":"pause","duration":80},
+          {"type":"pointerUp","button":0}]}]},t=30)
+        time.sleep(0.4)
+    log("WDA warmed up — starting test clock")
 
     def el(): return time.perf_counter()-t0
 
