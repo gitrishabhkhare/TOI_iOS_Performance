@@ -1,0 +1,41 @@
+{
+  "test_name": "Rail Items \u2014 URL & UTM Parameter Audit",
+  "timestamp": "2026-07-13T15:03:29.898037",
+  "device": "Rishabh Khare's iPhone (iPhone 16 Pro)",
+  "ios": "26.5.1",
+  "app": "com.2ergoTOI.jayant",
+  "threshold": "All rail items must have UTM params (utm_source, utm_medium, utm_campaign)",
+  "items": [
+    {
+      "item": "AI Masterclass",
+      "url": "https://timesofindia.indiatimes.com/toi/ai-masterclass?ag=toiapprails",
+      "browser": "WKWebView",
+      "all_params": {
+        "ag": "toiapprails"
+      },
+      "utm_params": {},
+      "status": "FAIL"
+    },
+    {
+      "item": "Chat with Astrologer",
+      "url": "https://\u200eapi.whatsapp.com",
+      "browser": "SFSafariViewController",
+      "all_params": {},
+      "utm_params": {},
+      "status": "FAIL"
+    },
+    {
+      "item": "Financial Freedom",
+      "url": "https://\u200eeconomictimes.indiatimes.com",
+      "browser": "SFSafariViewController",
+      "all_params": {},
+      "utm_params": {},
+      "status": "FAIL"
+    }
+  ],
+  "summary": {
+    "total": 3,
+    "pass": 0,
+    "fail": 3
+  }
+}
