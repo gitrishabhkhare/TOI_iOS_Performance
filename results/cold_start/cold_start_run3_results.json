@@ -1,0 +1,69 @@
+{
+  "test_name": "TOI News Cold Start \u2014 Run #3",
+  "device": "Rishabh Khare's iPhone",
+  "model": "iPhone18,3 (iPhone 16 Pro)",
+  "ios_version": "26.5.1",
+  "bundle_id": "com.2ergoTOI.jayant",
+  "test_timestamp": "2026-07-13T14:37:06.576434",
+  "threshold_ms": 5000,
+  "runs": [
+    {
+      "run": 1,
+      "total_cold_start_ms": 904,
+      "activate_call_ms": 5,
+      "tab_bar_visible_ms": 898,
+      "threshold_ms": 5000,
+      "exceeded": false
+    },
+    {
+      "run": 2,
+      "total_cold_start_ms": 847,
+      "activate_call_ms": 1,
+      "tab_bar_visible_ms": 846,
+      "threshold_ms": 5000,
+      "exceeded": false
+    },
+    {
+      "run": 3,
+      "total_cold_start_ms": 861,
+      "activate_call_ms": 5,
+      "tab_bar_visible_ms": 855,
+      "threshold_ms": 5000,
+      "exceeded": false
+    },
+    {
+      "run": 4,
+      "total_cold_start_ms": 842,
+      "activate_call_ms": 2,
+      "tab_bar_visible_ms": 840,
+      "threshold_ms": 5000,
+      "exceeded": false
+    },
+    {
+      "run": 5,
+      "total_cold_start_ms": 855,
+      "activate_call_ms": 4,
+      "tab_bar_visible_ms": 851,
+      "threshold_ms": 5000,
+      "exceeded": false
+    }
+  ],
+  "alerts": [],
+  "summary": {
+    "run_count": 5,
+    "pass_count": 5,
+    "fail_count": 0,
+    "min_ms": 842,
+    "max_ms": 904,
+    "avg_ms": 862,
+    "median_ms": 855,
+    "stdev_ms": 25,
+    "all_values_ms": [
+      904,
+      847,
+      861,
+      842,
+      855
+    ]
+  }
+}
