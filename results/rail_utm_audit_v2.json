@@ -1,0 +1,50 @@
+{
+  "test_name": "Rail Items \u2014 UTM Audit (Re-Run)",
+  "timestamp": "2026-07-13T15:15:44.869636",
+  "device": "Rishabh Khare's iPhone (iPhone 16 Pro) \u2014 iOS 26.5.1",
+  "app": "com.2ergoTOI.jayant",
+  "utm_keys_checked": [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content"
+  ],
+  "items": {
+    "AI Masterclass": {
+      "url": null,
+      "browser": "Native/Unknown",
+      "all_params": {},
+      "utm": {
+        "utm_source": "MISSING",
+        "utm_medium": "MISSING",
+        "utm_campaign": "MISSING",
+        "utm_content": "MISSING"
+      },
+      "status": "FAIL"
+    },
+    "Chat with Astrologer": {
+      "url": "https://api.whatsapp.com",
+      "browser": "SFSafariViewController",
+      "all_params": {},
+      "utm": {
+        "utm_source": "MISSING",
+        "utm_medium": "MISSING",
+        "utm_campaign": "MISSING",
+        "utm_content": "MISSING"
+      },
+      "status": "FAIL"
+    },
+    "Financial Freedom": {
+      "url": "https://economictimes.indiatimes.com",
+      "browser": "SFSafariViewController",
+      "all_params": {},
+      "utm": {
+        "utm_source": "MISSING",
+        "utm_medium": "MISSING",
+        "utm_campaign": "MISSING",
+        "utm_content": "MISSING"
+      },
+      "status": "FAIL"
+    }
+  }
+}
