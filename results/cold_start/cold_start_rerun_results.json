@@ -1,0 +1,79 @@
+{
+  "test_name": "TOI News Cold Start Performance \u2014 Re-Run",
+  "device": "Rishabh Khare's iPhone",
+  "model": "iPhone18,3 (iPhone 16 Pro)",
+  "ios_version": "26.5.1",
+  "bundle_id": "com.2ergoTOI.jayant",
+  "test_timestamp": "2026-07-13T14:32:27.509843",
+  "threshold_ms": 5000,
+  "methodology": "App terminated via Appium, relaunched via activateApp. Timer stops when XCUIElementTypeTabBar is visible.",
+  "runs": [
+    {
+      "run": 1,
+      "total_cold_start_ms": 7755,
+      "activate_call_ms": 5,
+      "tab_bar_visible_ms": 7749,
+      "threshold_ms": 5000,
+      "exceeded_threshold": true,
+      "screenshot": "screenshots/rerun_1.png"
+    },
+    {
+      "run": 2,
+      "total_cold_start_ms": 4092,
+      "activate_call_ms": 2,
+      "tab_bar_visible_ms": 4090,
+      "threshold_ms": 5000,
+      "exceeded_threshold": false,
+      "screenshot": "screenshots/rerun_2.png"
+    },
+    {
+      "run": 3,
+      "total_cold_start_ms": 735,
+      "activate_call_ms": 3,
+      "tab_bar_visible_ms": 732,
+      "threshold_ms": 5000,
+      "exceeded_threshold": false,
+      "screenshot": "screenshots/rerun_3.png"
+    },
+    {
+      "run": 4,
+      "total_cold_start_ms": 4285,
+      "activate_call_ms": 4,
+      "tab_bar_visible_ms": 4281,
+      "threshold_ms": 5000,
+      "exceeded_threshold": false,
+      "screenshot": "screenshots/rerun_4.png"
+    },
+    {
+      "run": 5,
+      "total_cold_start_ms": 850,
+      "activate_call_ms": 2,
+      "tab_bar_visible_ms": 849,
+      "threshold_ms": 5000,
+      "exceeded_threshold": false,
+      "screenshot": "screenshots/rerun_5.png"
+    }
+  ],
+  "alerts": [
+    {
+      "run": 1,
+      "ms": 7755,
+      "over_by_ms": 2755
+    }
+  ],
+  "summary": {
+    "run_count": 5,
+    "pass_count": 4,
+    "fail_count": 1,
+    "min_ms": 735,
+    "max_ms": 7755,
+    "avg_ms": 3543,
+    "all_values_ms": [
+      7755,
+      4092,
+      735,
+      4285,
+      850
+    ]
+  }
+}
