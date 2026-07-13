@@ -1,0 +1,59 @@
+{
+  "test_name": "TOI News Cold Start Performance",
+  "device": "Rishabh Khare's iPhone",
+  "model": "iPhone18,3 (iPhone 16 Pro)",
+  "ios_version": "26.5.1",
+  "bundle_id": "com.2ergoTOI.jayant",
+  "test_timestamp": "2026-07-13T13:32:53.964117",
+  "methodology": "App terminated via Appium, relaunched via activateApp, timed until XCUIElementTypeTabBar is visible",
+  "runs": [
+    {
+      "run": 1,
+      "total_cold_start_ms": 9593,
+      "activate_call_ms": 3,
+      "tab_bar_poll_ms": 9590,
+      "screenshot": "screenshots/cold_start_run1.png"
+    },
+    {
+      "run": 2,
+      "total_cold_start_ms": 849,
+      "activate_call_ms": 5,
+      "tab_bar_poll_ms": 844,
+      "screenshot": "screenshots/cold_start_run2.png"
+    },
+    {
+      "run": 3,
+      "total_cold_start_ms": 855,
+      "activate_call_ms": 4,
+      "tab_bar_poll_ms": 851,
+      "screenshot": "screenshots/cold_start_run3.png"
+    },
+    {
+      "run": 4,
+      "total_cold_start_ms": 845,
+      "activate_call_ms": 4,
+      "tab_bar_poll_ms": 841,
+      "screenshot": "screenshots/cold_start_run4.png"
+    },
+    {
+      "run": 5,
+      "total_cold_start_ms": 810,
+      "activate_call_ms": 4,
+      "tab_bar_poll_ms": 806,
+      "screenshot": "screenshots/cold_start_run5.png"
+    }
+  ],
+  "summary": {
+    "run_count": 5,
+    "min_ms": 810,
+    "max_ms": 9593,
+    "avg_ms": 2590,
+    "all_values_ms": [
+      9593,
+      849,
+      855,
+      845,
+      810
+    ]
+  }
+}
