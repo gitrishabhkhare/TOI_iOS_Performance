@@ -1,0 +1,203 @@
+{
+  "test_name": "TOI News Monkey Stress Test",
+  "device": "Rishabh Khare's iPhone",
+  "model": "iPhone18,3 (iPhone 16 Pro)",
+  "ios_version": "26.5.1",
+  "bundle_id": "com.2ergoTOI.jayant",
+  "test_timestamp": "2026-07-13T21:01:02.970319",
+  "duration_planned_min": 20,
+  "duration_actual_sec": 1209,
+  "anr_threshold_sec": 8.0,
+  "total_events": 37,
+  "events_per_min": 2,
+  "crash_count": 0,
+  "anr_count": 15,
+  "anr_events": [
+    {
+      "t": 71.1,
+      "action": "slow_tap",
+      "sec": 15.0
+    },
+    {
+      "t": 86.6,
+      "action": "slow_tap",
+      "sec": 15.0
+    },
+    {
+      "t": 102.1,
+      "action": "slow_tap",
+      "sec": 15.0
+    },
+    {
+      "t": 182.2,
+      "action": "slow_tap",
+      "sec": 13.62
+    },
+    {
+      "t": 280.2,
+      "action": "hamburger_coord",
+      "sec": 15.0
+    },
+    {
+      "t": 333.2,
+      "action": "slow_tap",
+      "sec": 15.0
+    },
+    {
+      "t": 348.7,
+      "action": "slow_tap",
+      "sec": 15.0
+    },
+    {
+      "t": 375.2,
+      "action": "back_settings",
+      "sec": 26.01
+    },
+    {
+      "t": 449.1,
+      "action": "hamburger_coord",
+      "sec": 15.0
+    },
+    {
+      "t": 601.0,
+      "action": "slow_tap",
+      "sec": 15.0
+    },
+    {
+      "t": 614.5,
+      "action": "slow_tap",
+      "sec": 12.93
+    },
+    {
+      "t": 687.8,
+      "action": "hamburger_coord",
+      "sec": 15.0
+    },
+    {
+      "t": 849.8,
+      "action": "hamburger_coord",
+      "sec": 15.0
+    },
+    {
+      "t": 1160.9,
+      "action": "swp_d",
+      "sec": 20.0
+    },
+    {
+      "t": 1176.0,
+      "action": "tap",
+      "sec": 15.0
+    }
+  ],
+  "overall_stability": "FAIR",
+  "unique_screens_count": 6,
+  "unique_screens": {
+    "Home Feed": {
+      "order": 1,
+      "type": "Main App",
+      "first_seen_sec": 56,
+      "events": 2,
+      "screenshot": null
+    },
+    "Unknown": {
+      "order": 2,
+      "type": "Unknown",
+      "first_seen_sec": 167,
+      "events": 2,
+      "screenshot": "s02_Unknown.png"
+    },
+    "Settings": {
+      "order": 3,
+      "type": "Settings",
+      "first_seen_sec": 318,
+      "events": 1,
+      "screenshot": null
+    },
+    "Article View": {
+      "order": 4,
+      "type": "Content",
+      "first_seen_sec": 493,
+      "events": 4,
+      "screenshot": "s04_Article_View.png"
+    },
+    "App Exclusives": {
+      "order": 5,
+      "type": "Main App",
+      "first_seen_sec": 586,
+      "events": 1,
+      "screenshot": null
+    },
+    "ePaper": {
+      "order": 6,
+      "type": "Content",
+      "first_seen_sec": 995,
+      "events": 1,
+      "screenshot": "s06_ePaper.png"
+    }
+  },
+  "minute_logs": [
+    {
+      "m": 1,
+      "ev": 3,
+      "sc": 1,
+      "cr": 0,
+      "an": 3
+    },
+    {
+      "m": 3,
+      "ev": 7,
+      "sc": 2,
+      "cr": 0,
+      "an": 4
+    },
+    {
+      "m": 6,
+      "ev": 16,
+      "sc": 3,
+      "cr": 0,
+      "an": 8
+    },
+    {
+      "m": 7,
+      "ev": 18,
+      "sc": 3,
+      "cr": 0,
+      "an": 9
+    },
+    {
+      "m": 10,
+      "ev": 21,
+      "sc": 5,
+      "cr": 0,
+      "an": 11
+    },
+    {
+      "m": 13,
+      "ev": 28,
+      "sc": 5,
+      "cr": 0,
+      "an": 12
+    },
+    {
+      "m": 16,
+      "ev": 34,
+      "sc": 6,
+      "cr": 0,
+      "an": 13
+    },
+    {
+      "m": 18,
+      "ev": 34,
+      "sc": 6,
+      "cr": 0,
+      "an": 13
+    },
+    {
+      "m": 19,
+      "ev": 35,
+      "sc": 6,
+      "cr": 0,
+      "an": 14
+    }
+  ]
+}
