@@ -170,6 +170,9 @@
     margin-bottom: 6px;
     font-size: 12.5px;
   }
+  thead {
+    display: table-header-group;
+  }
   thead th {
     background: #0d1b3e;
     color: #fff;
@@ -180,6 +183,7 @@
     letter-spacing: 0.3px;
     text-transform: uppercase;
   }
+  tbody tr { break-inside: avoid; page-break-inside: avoid; }
   tbody tr:nth-child(even) { background: #f5f7fc; }
   tbody tr:nth-child(odd)  { background: #fff; }
   tbody td {
@@ -280,6 +284,8 @@
     border-radius: 5px;
     padding: 14px 18px;
     margin-top: 22px;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
   .findings h4 {
     font-size: 12.5px;
@@ -300,6 +306,8 @@
     border-radius: 5px;
     padding: 14px 18px;
     margin-top: 14px;
+    break-inside: avoid;
+    page-break-inside: avoid;
   }
   .recommendations h4 {
     font-size: 12.5px;
@@ -418,9 +426,9 @@
     </div>
 
     <!-- Test Results Summary -->
-    <div class="section-title">Test Results Summary</div>
+    <div class="section-title" style="break-before:page;page-break-before:always;">Test Results Summary</div>
 
-    <table>
+    <table style="break-inside:avoid;page-break-inside:avoid;">
       <thead>
         <tr>
           <th style="width:8%">Test #</th>
