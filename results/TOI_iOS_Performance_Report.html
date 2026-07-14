@@ -570,7 +570,7 @@
       </table>
       <p class="tbl-note">*Session 2 warm avg includes two lukewarm runs (4,092 ms, 4,285 ms) where OS had partially evicted binary pages. Session 3 (5/5 PASS, avg 862 ms, σ = 25 ms) confirms excellent warm-restart performance.</p>
 
-      <div style="break-inside:avoid;page-break-inside:avoid;">
+      <div style="break-inside:avoid;page-break-inside:avoid;margin-top:32px;">
         <div class="findings">
           <h4>Finding — True Cold Start Exceeds Threshold</h4>
           <ul>
@@ -748,7 +748,7 @@
       </table>
       <p class="tbl-note">*Run 2 was terminated at 10 min to apply WDA warm-up fix. Consistent finding across all runs: <strong>0 app crashes. All ANRs are XCTest/WDA infrastructure (iOS 26.5.1 touch injection re-attach latency), not app-level.</strong></p>
 
-      <div style="break-inside:avoid;page-break-inside:avoid;">
+      <div style="break-inside:avoid;page-break-inside:avoid;margin-top:32px;">
         <div class="findings">
           <h4>Root Cause — iOS 26.5.1 XCTest Touch Injection Latency</h4>
           <ul>
@@ -852,7 +852,7 @@
       </table>
       <p class="tbl-note">SFSafariViewController: Apple's iOS security model prevents the host app from reading the full URL — only the domain is accessible via XCUITest. WhatsApp (<code>api.whatsapp.com</code>) also strips URL parameters on redirect, making UTM attribution via URL fundamentally impossible for that item.</p>
 
-      <div style="break-inside:avoid;page-break-inside:avoid;">
+      <div style="break-inside:avoid;page-break-inside:avoid;margin-top:32px;">
         <div class="findings">
           <h4>Findings Summary</h4>
           <ul>
